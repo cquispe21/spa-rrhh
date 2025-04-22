@@ -16,7 +16,12 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/inicio" element={<Inicio />}>
             <Route index element={<DasboardIndex />} />
-            <Route path="evaluacion" element={<EvaluacionIndex />} />
+            <Route path="employees" element={<></>} />
+            <Route path="evaluations" element={<EvaluacionIndex />} />
+            <Route path="evaluations/id" element={<></>} />
+            <Route path="evaluations/employee/:id" element={<></>} />
+            <Route path="feedback" element={<></>} />
+            
           </Route>
         </Route>
       </Routes>
