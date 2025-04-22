@@ -5,6 +5,7 @@ import IndexLogin from "./feactures/Login/IndexLogin";
 import ProtectedRoute from "./shared/Components/ProtectedRoute";
 import Inicio from "./feactures/Inicio/Inicio";
 import DasboardIndex from "./feactures/Dashboard/DashboardIndex";
+import EvaluacionIndex from "./feactures/Evaluacion/EvaluacionIndex";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/inicio" element={<Inicio />}>
             <Route index element={<DasboardIndex />} />
+            <Route path="evaluacion" element={<EvaluacionIndex />} />
           </Route>
         </Route>
       </Routes>
