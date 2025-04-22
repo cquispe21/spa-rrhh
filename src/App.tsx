@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import "./App.css";
+import "./index.css";
 import IndexLogin from "./feactures/Login/IndexLogin";
 import ProtectedRoute from "./shared/Components/ProtectedRoute";
 import Inicio from "./feactures/Inicio/Inicio";

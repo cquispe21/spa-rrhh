@@ -52,7 +52,7 @@ export const InputFormContext = ({
         className={
          error
             ? "w-full text-red-600 my-auto  text-w flex  flex-col text-sm gap-2"
-            : "w-full text-gray-600 dark:text-gray-300 my-auto flex flex-col text-sm gap-2"
+            : "w-full text-gray-500 dark:text-gray-300 my-auto flex flex-col text-sm gap-2"
         }
       >
         <p className=" dark:text-white font-semibold"> {title} </p>

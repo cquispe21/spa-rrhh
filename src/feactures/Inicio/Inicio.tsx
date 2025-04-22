@@ -22,7 +22,7 @@ export const Inicio: FC = () => {
   );
 
   return (
-    <div className="flex dark:bg-gray-900   relative">
+    <div className="flex dark:bg-gray-900 bg-[#FFFFFF]  relative">
       <SidebarDesktop
         OpenMenu={OpenMenu}
         setOpenMenu={setOpenMenu}
@@ -40,7 +40,7 @@ export const Inicio: FC = () => {
           OpenMenuMobile={OpenMenuMobile}
           setOpenMenuMobile={setOpenMenuMobile}
         />
-        <main className="h-screen  bg-white  mx-5 my-4 dark:bg-gray-900">
+        <main className="h-screen    mx-5 my-4 dark:bg-gray-900">
            
           <Outlet />
         </main>

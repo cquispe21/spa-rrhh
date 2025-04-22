@@ -11,7 +11,7 @@ interface SidebarDesktopProps {
 const SidebarDesktop: React.FC<SidebarDesktopProps> = ({ OpenMenu, setOpenMenu, isHovered, setIsHovered }) => {
   return (
     <div
-      className={` bg-[#004977] dark:bg-gray-800 lg:table-cell hidden relative   h-screen z-[90]   ease-in-out hover:ml-0  ${
+      className={` bg-[#111827] dark:bg-gray-800 lg:table-cell hidden relative   h-screen z-[90]   ease-in-out hover:ml-0  ${
         OpenMenu
           ? "lg:w-[259px]  transition-all duration-[460ms]"
           : "lg:w-20   transition-all  duration-[400ms] "
@@ -32,7 +32,7 @@ const SidebarDesktop: React.FC<SidebarDesktopProps> = ({ OpenMenu, setOpenMenu, 
         </div>
       ) : (
         <div
-          className={`bg-[#004977] dark:bg-gray-800   h-full   ${
+          className={`bg-[#111827] dark:bg-gray-800   h-full   ${
             isHovered
               ? " lg:w-[259px] transition-all duration-[460ms]   "
               : "lg:w-20  transition-all  duration-[400ms]"

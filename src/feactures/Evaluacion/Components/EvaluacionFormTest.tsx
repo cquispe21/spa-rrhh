@@ -50,7 +50,7 @@ const FormularioEvaluacion: React.FC = () => {
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
-        className="max-w-4xl  mx-auto p-6 border rounded-md shadow-md bg-white"
+        className="max-w-4xl  mx-auto p-6 border border-[#E5E7EB] rounded-md shadow-md bg-[#FFFFFF ]"
       >
        
         <div className="flex justify-end gap-3 pt-2">
@@ -62,7 +62,7 @@ const FormularioEvaluacion: React.FC = () => {
           />
         </div>
 
-        <h1 className="text-2xl font-light text-gray-600 text-center mb-6">
+        <h1 className="text-2xl font-semibold text-gray-900 text-center mb-6">
           Formulario de Evaluación
         </h1>
 
@@ -75,7 +75,7 @@ const FormularioEvaluacion: React.FC = () => {
         {fields.map((pregunta, index) => (
           <div
             key={pregunta.id}
-            className="mb-4 p-4 border mt-3 border-gray-200 rounded-lg shadow-sm"
+            className="mb-4 p-4 border mt-3 border-gray-300 rounded-lg shadow-sm"
           >
             <div className="flex justify-end items-center ">
               <Button onClick={() => remove(index)} icon={<DeleteIcon />} />

@@ -32,7 +32,7 @@ const SidebarMobile: React.FC<SidebarMobileProps> = ({ OpenMenuMobile, setOpenMe
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-full"
           >
-            <Dialog.Panel className="relative flex p-5 pt-8  w-72 flex-col overflow-y-auto bg-[#004977] pb-12 shadow-xl">
+            <Dialog.Panel className="relative flex p-5 pt-8  w-72 flex-col overflow-y-auto bg-[#111827] pb-12 shadow-xl">
               <div className="flex   pb-5">
                 <button
                   type="button"

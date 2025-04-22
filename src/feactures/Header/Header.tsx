@@ -15,7 +15,7 @@ export const Header: FC<HeaderProps> = ({
   setOpenMenuMobile,
 }) => {
   return (
-    <div className="flex justify-between h-[4.5rem] my-auto border-b-gray-200 border-b dark:border-b-gray-700  dark:bg-gray-900">
+    <div className="flex bg-[#F3F4F6] justify-between h-[4.5rem] my-auto border-b-gray-200 border-b dark:border-b-gray-700  dark:bg-gray-900">
       <div className="my-auto  lg:flex lg:justify-between hidden items-center py-2 space-x-2  ">
         <button
           onClick={() => setOpenMenu(!OpenMenu)}
