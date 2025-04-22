@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   useForm,
   useFieldArray,
-  Controller,
   FormProvider,
 } from "react-hook-form";
 import { toast } from "sonner";
@@ -12,19 +11,15 @@ import { OpcionesMultiples } from "./OpcionesMultiples";
 import { InputFormContext } from "../../../shared/Components/InputFormContext";
 import InputSelectContext from "../../../shared/Components/InputSelectContext";
 import SavedIcon from "../../../icons/SavedIcon";
+import { Evaluacion } from "../../../domain/Evaluacion/evaluacion";
+import EvaluacionContext, { IEvaluacionContext } from "../Context/EvaluacionContext";
 
-interface Pregunta {
-  texto: string;
-  tipo: string;
-  opciones?: string[];
-}
 
-interface Evaluacion {
-  evaluacion: string;
-  preguntas: Pregunta[];
-}
 
 const FormularioEvaluacion: React.FC = () => {
+
+  const {guardarEvaluacion  } = useContext(EvaluacionContext) as IEvaluacionContext;
+
   const initialStateForm: Evaluacion = {
     evaluacion: "",
     preguntas: [],
@@ -44,35 +39,12 @@ const FormularioEvaluacion: React.FC = () => {
     append({ texto: "", tipo: "abierta", opciones: [] });
   };
 
-  const onSubmit = (data: Evaluacion) => {
-    console.log("Evaluación enviada:", data);
-    toast.success("Evaluación guardada exitosamente");
+  const onSubmit = async (data: Evaluacion) => {
+    await guardarEvaluacion(data);
+    methods.reset();
   };
 
-  const cargarEjemplo = () => {
-    methods.setValue("evaluacion", "EVALUACION EJEMPLO TEXTO");
-    methods.setValue("preguntas", [
-      { texto: "Colabora de forma efectiva con los demás.", tipo: "abierta" },
-      {
-        texto: "Es accesible y dispuesto a ayudar a otros.",
-        tipo: "likert",
-        opciones: ["1", "2", "3", "4", "5"],
-      },
-      {
-        texto:
-          "¿En qué áreas crees que [Nombre del Empleado] podría mejorar su trabajo en equipo?",
-        tipo: "multiple",
-        opciones: [
-          "Colaboración en reuniones",
-          "Escuchar a los demás",
-          "Delegación de tareas",
-          "Organización de proyectos",
-          "Otro",
-        ],
-      },
-    ]);
-    toast("Datos de evaluación agregados");
-  };
+ 
 
   return (
     <FormProvider {...methods}>
@@ -80,13 +52,7 @@ const FormularioEvaluacion: React.FC = () => {
         onSubmit={methods.handleSubmit(onSubmit)}
         className="max-w-4xl  mx-auto p-6 border rounded-md shadow-md bg-white"
       >
-        {/* <button
-          type="button"
-          onClick={cargarEjemplo}
-          className="bg-purple-500 text-white py-2 px-6 mt-4 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
-        >
-          Agregar datos evaluación
-        </button> */}
+       
         <div className="flex justify-end gap-3 pt-2">
           <Button
           style="flex justify-center items-center gap-x-2"
