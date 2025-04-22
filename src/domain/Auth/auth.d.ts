@@ -9,3 +9,4 @@ export interface IAuthResponse {
     resultado: boolean;
     mensaje: string;
 }
+

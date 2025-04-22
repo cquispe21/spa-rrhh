@@ -4,16 +4,18 @@ import "./App.css";
 import IndexLogin from "./feactures/Login/IndexLogin";
 import ProtectedRoute from "./shared/Components/ProtectedRoute";
 import Inicio from "./feactures/Inicio/Inicio";
+import DasboardIndex from "./feactures/Dashboard/DashboardIndex";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<IndexLogin />} />
-
         <Route path="*" element={<Navigate to={"/"} />} />
         <Route element={<ProtectedRoute />}>
-          <Route path="/inicio" element={<Inicio />} />
+          <Route path="/inicio" element={<Inicio />}>
+            <Route index element={<DasboardIndex />} />
+          </Route>
         </Route>
       </Routes>
     </>

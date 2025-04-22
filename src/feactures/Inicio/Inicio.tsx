@@ -3,13 +3,23 @@ import { Outlet } from "react-router-dom";
 import SidebarDesktop from "../Sidebar/Desktop/Index";
 import SidebarMobile from "../Sidebar/Mobile";
 import { Header } from "../Header/Header";
-
-
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/Auth/auth.slice";
 
 export const Inicio: FC = () => {
   const [OpenMenu, setOpenMenu] = useState(true);
   const [OpenMenuMobile, setOpenMenuMobile] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const dispatch = useDispatch();
+
+  dispatch(
+    setUser({
+      name: "Cristhian",
+      email: "cris@example.com",
+      role: "Admin",
+      isLoggedIn: true,
+    })
+  );
 
   return (
     <div className="flex dark:bg-gray-900   relative">
@@ -31,6 +41,7 @@ export const Inicio: FC = () => {
           setOpenMenuMobile={setOpenMenuMobile}
         />
         <main className="h-screen  bg-white  mx-5 my-4 dark:bg-gray-900">
+           
           <Outlet />
         </main>
       </div>

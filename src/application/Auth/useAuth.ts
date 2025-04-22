@@ -12,5 +12,15 @@ export default function useAuth() {
     }
   };
 
-  return { Auth };
+  const Register = async (auth: IAuth): Promise<IAuthResponse> =>  {
+    try {
+      return AuthGet(auth);
+    }
+    catch (error) {
+      console.log(error);   
+        throw new Error("Error en la autenticación");
+    }
+  }
+
+  return { Auth,Register };
 }
