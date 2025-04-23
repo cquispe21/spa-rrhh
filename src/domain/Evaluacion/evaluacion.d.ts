@@ -11,3 +11,4 @@ export interface Pregunta {
     questions: Pregunta[];
     fechaCreacion?: Date;
   }
+

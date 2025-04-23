@@ -13,9 +13,7 @@ import EvaluacionContext, {
 import { mockEvaluaciones } from "@/utils/data";
 
 const FormularioEvaluacion: React.FC = () => {
-  const { guardarEvaluacion,EvaluationId } = useContext(
-    EvaluacionContext
-  ) as IEvaluacionContext;
+  const { guardarEvaluacion,EvaluationId,updateEvaluation,setEvaluationId } = useContext(EvaluacionContext) as IEvaluacionContext;
 
   const initialStateForm: Evaluacion = {
     idEvaluacion: "",
@@ -47,21 +45,35 @@ const FormularioEvaluacion: React.FC = () => {
     );
   };
 
+  const onSubitEditar = async (data: Evaluacion) => {
+    await updateEvaluation(data.idEvaluacion!, data);
+    methods.reset(
+      initialStateForm
+    );
+  }
+
+
   const EncuestaTest  = () => {
     methods.reset(mockEvaluaciones[0])
   }
-  useEffect(() => {
-    console.log("estoy en el useffect de evaluacionId", EvaluationId);
+
+  const estadoFormulario = () => {
     if (EvaluationId && Object.keys(EvaluationId).length > 0) {
-      methods.reset(EvaluationId);
+      return methods.reset(EvaluationId);
     }
+  }
+  useEffect(() => {
+    estadoFormulario();
   }, [EvaluationId, methods]);
+
+ 
+  
   
 
   return (
     <FormProvider {...methods}>
       <form
-        onSubmit={methods.handleSubmit(onSubmit)}
+        onSubmit={methods.handleSubmit(EvaluationId ? onSubitEditar : onSubmit)}
         className="max-w-4xl  mx-auto p-6 border border-[#E5E7EB] rounded-md shadow-md bg-[#FFFFFF ]"
       >
         <div className="flex justify-end gap-3 pt-2">

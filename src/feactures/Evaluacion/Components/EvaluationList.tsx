@@ -12,6 +12,9 @@ import EvaluacionContext, {
   IEvaluacionContext,
 } from "../Context/EvaluacionContext";
 
+import moment from "moment";
+
+
 export default function EvaluacionList() {
   const navigate = useNavigate();
 
@@ -42,11 +45,15 @@ export default function EvaluacionList() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {Evaluationlist?.map((evaluation) => (
+          {Evaluationlist!.map((evaluation) => (
             <TableRow key={evaluation.idEvaluacion}>
-              <TableHead>{evaluation.evaluacion}</TableHead>
-              <TableHead>{evaluation.descripcion}</TableHead>
-              <TableHead>{evaluation.fechaCreacion && "11/202/205"}</TableHead>
+              <TableHead>{evaluation.title}</TableHead>
+              <TableHead>{evaluation.description}</TableHead>
+              <TableHead>
+
+              {moment(evaluation.fechaCreacion).format("YYYY-MM-DD")}
+
+              </TableHead>
               <TableHead>
                 <Button
                   text="Ver Detalles"

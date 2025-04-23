@@ -3,9 +3,10 @@ import { Evaluacion } from "../../domain/Evaluacion/evaluacion";
 import EvaluationClient from "../../utils/configuration";
 
 export default function EvaluationServices(): IEvaluationServices {
+
   const EvaluationSaved = async (evaluacion: Evaluacion): Promise<boolean> => {
     try {
-      const res = await EvaluationClient.post("evaluations", evaluacion);
+      await EvaluationClient.post("evaluations", evaluacion);
       return true;
     } catch (error) {
       console.error("Error al guardar la evaluación:", error);
@@ -15,12 +16,21 @@ export default function EvaluationServices(): IEvaluationServices {
 
   const EvaluationAll = async (): Promise<Evaluacion[]> => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const evaluations = localStorage.getItem("evaluacion");
-      if (evaluations) {
-        return JSON.parse(evaluations);
-      }
-      return [];
+      const res = await EvaluationClient.get("evaluations/getEvaluations").then(
+        (res) => res.data.data
+      );
+
+      const modeloEvaluacion: Evaluacion[] = res.map(
+        ({ _id, createdAt, ...rest }) => {
+          return {
+            ...rest,
+            idEvaluacion: _id,
+            fechaCreacion: createdAt,
+          };
+        }
+      );
+
+      return modeloEvaluacion;
     } catch (error) {
       console.error("Error al obtener las evaluaciones:", error);
       return [];
@@ -31,24 +41,37 @@ export default function EvaluationServices(): IEvaluationServices {
     idEvaluacion: string
   ): Promise<Evaluacion | null> => {
     try {
-      // Simula delay (opcional)
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const res = await EvaluationClient.get(
+        `evaluations/${idEvaluacion}`
+      ).then((res) => res.data.data);
 
-      const evaluations = localStorage.getItem("evaluacion");
-      if (!evaluations) return null;
+      const modeloEvaluacionId: Evaluacion = {
+        ...res,
+        idEvaluacion: res._id,
+        fechaCreacion: res.createdAt,
+      };
+      delete modeloEvaluacionId._id;
 
-      const parsedEvaluations: Evaluacion[] = JSON.parse(evaluations);
-
-      const evaluation = parsedEvaluations.find(
-        (w) => w.idEvaluacion === idEvaluacion
-      );
-
-      return evaluation ?? null; // Devuelve null si no encuentra nada
+      return modeloEvaluacionId;
     } catch (error) {
       console.error("Error al obtener la evaluación por ID:", error);
       return null;
     }
   };
 
-  return { EvaluationSaved, EvaluationAll, EvaluationSearcId };
+  const EvaluationUpdate = async (
+    idEvaluacion: string,
+    evaluacion: Evaluacion
+  ): Promise<boolean> => {
+    try {
+      await EvaluationClient.put(`evaluations/${idEvaluacion}`, evaluacion);
+      return true;
+    } catch (error) {
+      console.error("Error al actualizar la evaluación:", error);
+      return false;
+    }
+  }
+
+
+  return { EvaluationSaved, EvaluationAll, EvaluationSearcId,EvaluationUpdate };
 }

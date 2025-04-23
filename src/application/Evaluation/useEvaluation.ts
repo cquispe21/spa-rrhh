@@ -2,13 +2,14 @@ import { Evaluacion } from "../../domain/Evaluacion/evaluacion";
 import EvaluationServices from "../../infraestructure/EvaluationRepository/EvaluationServices";
 
 export default function useEvaluation() {
-  const { EvaluationSaved,EvaluationAll,EvaluationSearcId } = EvaluationServices();
-  const SaveEvalution = async (evaluation: Evaluacion): Promise<boolean> =>  {
+  const { EvaluationSaved, EvaluationAll, EvaluationSearcId,EvaluationUpdate } =
+    EvaluationServices();
+  const SaveEvalution = async (evaluation: Evaluacion): Promise<boolean> => {
     try {
       return EvaluationSaved(evaluation);
     } catch (error) {
-      console.log(error);   
-        throw new Error("Error en la autenticación");
+      console.log(error);
+      throw new Error("Error en la autenticación");
     }
   };
 
@@ -16,23 +17,36 @@ export default function useEvaluation() {
     try {
       const response = await EvaluationAll();
       return response;
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       throw new Error("Error al obtener las evaluaciones");
     }
   };
 
-  const GetEvaluationId = async (idEvaluacion:string): Promise<Evaluacion> => {
+  const GetEvaluationId = async (
+    idEvaluacion: string
+  ): Promise<Evaluacion | null> => {
     try {
-      return  await EvaluationSearcId(idEvaluacion);
-    
+      return await EvaluationSearcId(idEvaluacion);
     } catch (error) {
       console.log(error);
       throw new Error("Error al obtener la evaluación por ID");
     }
-  }
+  };
 
-  
-  return {SaveEvalution,GetEvaluationAll,GetEvaluationId };
+  const UpdateEvaluation = async (
+    idEvaluacion: string,
+    evaluation: Evaluacion
+  ): Promise<boolean> => {
+    try {
+      return await EvaluationUpdate(idEvaluacion, evaluation);
+    }
+    catch (error) {
+      console.log(error);
+      throw new Error("Error al actualizar la evaluación");
+    }
+  };
+
+
+  return { SaveEvalution, GetEvaluationAll, GetEvaluationId,UpdateEvaluation };
 }

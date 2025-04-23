@@ -4,4 +4,5 @@ export interface IEvaluationServices {
     EvaluationSaved: (evaluation: Evaluacion) => Promise<boolean>;
     EvaluationAll: () => Promise<Evaluacion[]>;
     EvaluationSearcId: (idEvaluacion:string) => Promise<Evaluacion | null>;
+    EvaluationUpdate: (idEvaluacion:string, evaluation: Evaluacion) => Promise<boolean>;
 }
