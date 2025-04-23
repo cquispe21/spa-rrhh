@@ -66,4 +66,12 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  
+}
+
+@layer components {
+  .icon-style {
+    @apply mr-3 h-6 w-6 flex-shrink-0 my-auto dark:group-hover:text-black group-hover:text-black;
+  }
 }

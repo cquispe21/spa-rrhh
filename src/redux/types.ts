@@ -1,8 +1,8 @@
 // src/features/user/userTypes.ts
 export interface UserState {
-    name: string;
+    idRol: number;
     email: string;
-    role: string;
-    isLoggedIn: boolean;
+    username: string;
+    token: string;
   }
   

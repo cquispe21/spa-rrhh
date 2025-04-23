@@ -5,6 +5,9 @@ export interface Pregunta {
   }
   
   export interface Evaluacion {
+    idEvaluacion?: string;
     evaluacion: string;
+    descripcion: string;
     preguntas: Pregunta[];
+    fechaCreacion?: Date;
   }

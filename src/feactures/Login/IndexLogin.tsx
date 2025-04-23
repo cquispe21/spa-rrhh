@@ -5,7 +5,7 @@ import { LoginoProvider } from "./Context/LoginContext";
 export default function IndexLogin() {
     const isLoggedIn = localStorage.getItem("token") !== null;
     if (isLoggedIn) {
-        return <Navigate to="/inicio" />;
+        return <Navigate to="/360" />;
     }
     return (
        <LoginoProvider>

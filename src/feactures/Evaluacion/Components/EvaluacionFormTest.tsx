@@ -1,10 +1,5 @@
-import React, { useContext } from "react";
-import {
-  useForm,
-  useFieldArray,
-  FormProvider,
-} from "react-hook-form";
-import { toast } from "sonner";
+import React, { useContext, useEffect } from "react";
+import { useForm, useFieldArray, FormProvider } from "react-hook-form";
 import Button from "../../../shared/Components/Button";
 import DeleteIcon from "../../../icons/DeleteIcon";
 import { OpcionesMultiples } from "./OpcionesMultiples";
@@ -12,17 +7,22 @@ import { InputFormContext } from "../../../shared/Components/InputFormContext";
 import InputSelectContext from "../../../shared/Components/InputSelectContext";
 import SavedIcon from "../../../icons/SavedIcon";
 import { Evaluacion } from "../../../domain/Evaluacion/evaluacion";
-import EvaluacionContext, { IEvaluacionContext } from "../Context/EvaluacionContext";
-
-
+import EvaluacionContext, {
+  IEvaluacionContext,
+} from "../Context/EvaluacionContext";
+import { mockEvaluaciones } from "@/utils/data";
 
 const FormularioEvaluacion: React.FC = () => {
-
-  const {guardarEvaluacion  } = useContext(EvaluacionContext) as IEvaluacionContext;
+  const { guardarEvaluacion,EvaluationId } = useContext(
+    EvaluacionContext
+  ) as IEvaluacionContext;
 
   const initialStateForm: Evaluacion = {
+    idEvaluacion: "",
     evaluacion: "",
     preguntas: [],
+    descripcion: "",
+    fechaCreacion: new Date(),
   };
 
   const methods = useForm<Evaluacion>({
@@ -40,11 +40,23 @@ const FormularioEvaluacion: React.FC = () => {
   };
 
   const onSubmit = async (data: Evaluacion) => {
+    if(data.idEvaluacion === "") data.idEvaluacion = crypto.randomUUID();
     await guardarEvaluacion(data);
-    methods.reset();
+    methods.reset(
+      initialStateForm
+    );
   };
 
- 
+  const EncuestaTest  = () => {
+    methods.reset(mockEvaluaciones[0])
+  }
+  useEffect(() => {
+    console.log("estoy en el useffect de evaluacionId", EvaluationId);
+    if (EvaluationId && Object.keys(EvaluationId).length > 0) {
+      methods.reset(EvaluationId);
+    }
+  }, [EvaluationId, methods]);
+  
 
   return (
     <FormProvider {...methods}>
@@ -52,25 +64,39 @@ const FormularioEvaluacion: React.FC = () => {
         onSubmit={methods.handleSubmit(onSubmit)}
         className="max-w-4xl  mx-auto p-6 border border-[#E5E7EB] rounded-md shadow-md bg-[#FFFFFF ]"
       >
-       
         <div className="flex justify-end gap-3 pt-2">
           <Button
-          style="flex justify-center items-center gap-x-2"
+            style="flex justify-center items-center gap-x-2"
             type="submit"
             text="Guardar Evaluación"
+            icon={<SavedIcon />}
+          />
+          <Button
+            style="flex justify-center items-center gap-x-2"
+         onClick={EncuestaTest}
+            text="Llenar Evaluación Test"
             icon={<SavedIcon />}
           />
         </div>
 
         <h1 className="text-2xl font-semibold text-gray-900 text-center mb-6">
-          Formulario de Evaluación
+          Formulario de Evaluación 
+         
         </h1>
+    
+        <div className="flex flex-col gap-4 mb-4">
+          <InputFormContext
+            name="evaluacion"
+            title="Título de la evaluación"
+            validations={{ required: true }}
+          />
 
-        <InputFormContext
-          name="evaluacion"
-          title="Título de la evaluación"
-          validations={{ required: true }}
-        />
+          <InputFormContext
+            name="descripcion"
+            title="Descripción de la evaluación"
+            validations={{ required: true }}
+          />
+        </div>
 
         {fields.map((pregunta, index) => (
           <div

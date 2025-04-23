@@ -1,8 +1,8 @@
-import { IAuth, IAuthResponse } from "../../domain/Auth/auth";
+import { IAuth, IAuthRegister, IAuthResponse } from "../../domain/Auth/auth";
 import AuthServices from "../../infraestructure/AuthRepository/AuthServices";
 
 export default function useAuth() {
-  const { AuthGet } = AuthServices();
+  const { AuthGet,AuthRegister } = AuthServices();
   const Auth = async (auth: IAuth): Promise<IAuthResponse> =>  {
     try {
       return AuthGet(auth);
@@ -12,9 +12,9 @@ export default function useAuth() {
     }
   };
 
-  const Register = async (auth: IAuth): Promise<IAuthResponse> =>  {
+  const Register = async (auth: IAuthRegister): Promise<IAuthResponse> =>  {
     try {
-      return AuthGet(auth);
+      return AuthRegister(auth);
     }
     catch (error) {
       console.log(error);   

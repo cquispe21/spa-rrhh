@@ -3,10 +3,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserState } from '../types';
 
 const initialState: UserState = {
-  name: '',
+  idRol: 0,
   email: '',
-  role: '',
-  isLoggedIn: false,
+  username: '',
+  token: '',
 };
 
 const userSlice = createSlice({
@@ -18,10 +18,10 @@ const userSlice = createSlice({
     },
     logout: () => {
       return {
-        name: '',
+        idRol: 0,
         email: '',
-        role: '',
-        isLoggedIn: false,
+        username: '',
+        token: '',
       };
     },
   },

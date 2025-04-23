@@ -4,18 +4,18 @@ import AuthClient from "../../utils/configuration";
 
 export default function AuthServices(): IAuthServices {
 
-    const responseAuth : IAuthResponse = {
-        token: "123123123213131321",
-        resultado: true,
-        mensaje: "123123"
-    };
-
+   
 
     const AuthGet = async (auth: IAuth):Promise<IAuthResponse> => {
-        //const res = await AuthClient.post("Auth/login", auth).then((res) => res.data);
-        console.log(responseAuth)
-        const res = responseAuth;
+   
+        const res = await AuthClient.post("auth/login", auth).then((res) => res.data);
         return res;
     };
-    return { AuthGet };
+
+
+    const AuthRegister = async (auth: IAuth):Promise<IAuthResponse> => {
+        const res = await AuthClient.post("auth/register", auth).then((res) => res.data);
+        return res;
+    };
+    return { AuthGet,AuthRegister};
 }

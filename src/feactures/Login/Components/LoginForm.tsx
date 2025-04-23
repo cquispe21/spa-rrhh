@@ -6,7 +6,7 @@ import { InputFormContext } from "../../../shared/Components/InputFormContext";
 
 export default function LoginForm() {
   const initialStateForm: IAuth = {
-    userName: "",
+    username: "",
     password: "",
   };
 
@@ -23,7 +23,7 @@ export default function LoginForm() {
         <FormProvider {...methods}>
           <form className="space-y-4" onSubmit={methods.handleSubmit(AuthSet)}>
             <InputFormContext
-              name="userName"
+              name="username"
               title="Nombre de usuario"
               validations={{
                 required: "Este campo es requerido",

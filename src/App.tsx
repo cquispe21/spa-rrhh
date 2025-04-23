@@ -7,19 +7,27 @@ import ProtectedRoute from "./shared/Components/ProtectedRoute";
 import Inicio from "./feactures/Inicio/Inicio";
 import DasboardIndex from "./feactures/Dashboard/DashboardIndex";
 import EvaluacionIndex from "./feactures/Evaluacion/EvaluacionIndex";
+import { useDispatch } from "react-redux";
+import { setUser } from "./redux/Auth/auth.slice";
+import EmployeesIndex from "./feactures/Register/EmployeesIndex";
 
 function App() {
+  const dispatch = useDispatch();
+  const dataUser = localStorage.getItem("user");
+  const user = dataUser ? JSON.parse(dataUser) : null;
+  dispatch(setUser(user));
   return (
     <>
       <Routes>
         <Route path="/" element={<IndexLogin />} />
         <Route path="*" element={<Navigate to={"/"} />} />
         <Route element={<ProtectedRoute />}>
-          <Route path="/inicio" element={<Inicio />}>
+          <Route path="/360" element={<Inicio />}>
             <Route index element={<DasboardIndex />} />
-            <Route path="employees" element={<></>} />
-            <Route path="evaluations" element={<EvaluacionIndex />} />
-            <Route path="evaluations/id" element={<></>} />
+            <Route path="employees" element={<EmployeesIndex/>} />
+            <Route path="evaluation" element={<EvaluacionIndex />} />
+            <Route path="evaluations/create" element={<EvaluacionIndex />} />
+            <Route path="evaluations/:id" element={<EvaluacionIndex />} />
             <Route path="evaluations/employee/:id" element={<></>} />
             <Route path="feedback" element={<></>} />
             
