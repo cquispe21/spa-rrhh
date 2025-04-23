@@ -13,7 +13,9 @@ import EvaluacionContext, {
 import { mockEvaluaciones } from "@/utils/data";
 
 const FormularioEvaluacion: React.FC = () => {
-  const { guardarEvaluacion,EvaluationId,updateEvaluation,setEvaluationId } = useContext(EvaluacionContext) as IEvaluacionContext;
+  const { guardarEvaluacion, EvaluationId, updateEvaluation } = useContext(
+    EvaluacionContext
+  ) as IEvaluacionContext;
 
   const initialStateForm: Evaluacion = {
     idEvaluacion: "",
@@ -38,37 +40,28 @@ const FormularioEvaluacion: React.FC = () => {
   };
 
   const onSubmit = async (data: Evaluacion) => {
-    if(data.idEvaluacion === "") data.idEvaluacion = crypto.randomUUID();
+    if (data.idEvaluacion === "") data.idEvaluacion = crypto.randomUUID();
     await guardarEvaluacion(data);
-    methods.reset(
-      initialStateForm
-    );
+    methods.reset(initialStateForm);
   };
 
   const onSubitEditar = async (data: Evaluacion) => {
     await updateEvaluation(data.idEvaluacion!, data);
-    methods.reset(
-      initialStateForm
-    );
-  }
+    methods.reset(initialStateForm);
+  };
 
-
-  const EncuestaTest  = () => {
-    methods.reset(mockEvaluaciones[0])
-  }
+  const EncuestaTest = () => {
+    methods.reset(mockEvaluaciones[0]);
+  };
 
   const estadoFormulario = () => {
     if (EvaluationId && Object.keys(EvaluationId).length > 0) {
       return methods.reset(EvaluationId);
     }
-  }
+  };
   useEffect(() => {
     estadoFormulario();
   }, [EvaluationId, methods]);
-
- 
-  
-  
 
   return (
     <FormProvider {...methods}>
@@ -76,26 +69,25 @@ const FormularioEvaluacion: React.FC = () => {
         onSubmit={methods.handleSubmit(EvaluationId ? onSubitEditar : onSubmit)}
         className="max-w-4xl  mx-auto p-6 border border-[#E5E7EB] rounded-md shadow-md bg-[#FFFFFF ]"
       >
-        <div className="flex justify-end gap-3 pt-2">
+        <div className="flex flex-col sm:flex-row justify-end items-stretch sm:items-center gap-2 sm:gap-3 p-2 w-full">
           <Button
-            style="flex justify-center items-center gap-x-2"
+            style="w-full sm:w-auto flex justify-center items-center gap-x-2"
             type="submit"
             text="Guardar Evaluación"
             icon={<SavedIcon />}
           />
           <Button
-            style="flex justify-center items-center gap-x-2"
-         onClick={EncuestaTest}
+            style="w-full sm:w-auto flex justify-center items-center gap-x-2"
+            onClick={EncuestaTest}
             text="Llenar Evaluación Test"
             icon={<SavedIcon />}
           />
         </div>
 
         <h1 className="text-2xl font-semibold text-gray-900 text-center mb-6">
-          Formulario de Evaluación 
-         
+          Formulario de Evaluación
         </h1>
-    
+
         <div className="flex flex-col gap-4 mb-4">
           <InputFormContext
             name="title"
@@ -118,7 +110,7 @@ const FormularioEvaluacion: React.FC = () => {
             <div className="flex justify-end items-center ">
               <Button onClick={() => remove(index)} icon={<DeleteIcon />} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
               <InputFormContext
                 name={`questions.${index}.text` as const}
                 title="Titulo de la pregunta"
@@ -140,11 +132,11 @@ const FormularioEvaluacion: React.FC = () => {
             {methods.watch(`questions.${index}.type`) === "likert" && (
               <div className="mt-2">
                 <p className="text-sm mb-2">Selecciona tu nivel de acuerdo:</p>
-                <div className="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-200">
+                <div className="flex flex-wrap justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-200 gap-2 sm:gap-4">
                   {["1", "2", "3", "4", "5"].map((valor) => (
                     <label
                       key={valor}
-                      className="flex flex-col items-center text-xs mx-1"
+                      className="flex flex-col items-center text-[11px] sm:text-xs mx-1 w-[30%] sm:w-auto flex-grow sm:flex-grow-0 text-center"
                     >
                       <input
                         type="radio"
@@ -153,8 +145,8 @@ const FormularioEvaluacion: React.FC = () => {
                         className="mb-1 accent-blue-500"
                         disabled
                       />
-                      {valor}
-                      <span className="mt-1">
+                      <span className="font-semibold">{valor}</span>
+                      <span className="mt-1 text-[10px] sm:text-xs leading-tight">
                         {valor === "1"
                           ? "Muy en desacuerdo"
                           : valor === "5"
