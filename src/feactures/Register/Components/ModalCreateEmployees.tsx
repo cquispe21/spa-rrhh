@@ -31,17 +31,14 @@ export default function ModalCreateEmployees({
   };
 
   const methods = useForm({ defaultValues: InitialState });
- 
 
-  const {AuthSet} = useContext(RegisterContext) as IRegisterContext;
-
+  const { AuthSet } = useContext(RegisterContext) as IRegisterContext;
 
   useEffect(() => {
     if (!isOpen) {
       methods.reset(InitialState);
     }
   }, [isOpen]);
-
 
   return (
     <ModalGeneral isOpen={isOpen} onClose={onClose}>

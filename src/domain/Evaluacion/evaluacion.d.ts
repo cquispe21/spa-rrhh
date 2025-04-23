@@ -1,13 +1,13 @@
 export interface Pregunta {
-    texto: string;
-    tipo: string;
-    opciones?: string[];
+  text: string;
+  type: string;
+  options?: string[];
   }
   
   export interface Evaluacion {
     idEvaluacion?: string;
-    evaluacion: string;
-    descripcion: string;
-    preguntas: Pregunta[];
+    title: string;
+    description: string;
+    questions: Pregunta[];
     fechaCreacion?: Date;
   }

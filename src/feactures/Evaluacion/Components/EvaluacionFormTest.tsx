@@ -19,9 +19,9 @@ const FormularioEvaluacion: React.FC = () => {
 
   const initialStateForm: Evaluacion = {
     idEvaluacion: "",
-    evaluacion: "",
-    preguntas: [],
-    descripcion: "",
+    title: "",
+    questions: [],
+    description: "",
     fechaCreacion: new Date(),
   };
 
@@ -32,11 +32,11 @@ const FormularioEvaluacion: React.FC = () => {
 
   const { fields, append, remove } = useFieldArray({
     control: methods.control,
-    name: "preguntas",
+    name: "questions",
   });
 
   const agregarPregunta = () => {
-    append({ texto: "", tipo: "abierta", opciones: [] });
+    append({ text: "", type: "abierta", options: [] });
   };
 
   const onSubmit = async (data: Evaluacion) => {
@@ -86,13 +86,13 @@ const FormularioEvaluacion: React.FC = () => {
     
         <div className="flex flex-col gap-4 mb-4">
           <InputFormContext
-            name="evaluacion"
+            name="title"
             title="Título de la evaluación"
             validations={{ required: true }}
           />
 
           <InputFormContext
-            name="descripcion"
+            name="description"
             title="Descripción de la evaluación"
             validations={{ required: true }}
           />
@@ -108,13 +108,13 @@ const FormularioEvaluacion: React.FC = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <InputFormContext
-                name={`preguntas.${index}.texto` as const}
+                name={`questions.${index}.text` as const}
                 title="Titulo de la pregunta"
                 validations={{ required: true }}
               />
 
               <InputSelectContext
-                name={`preguntas.${index}.tipo` as const}
+                name={`questions.${index}.type` as const}
                 title="Tipo de pregunta"
                 options={[
                   { value: "abierta", title: "Abierta" },
@@ -125,7 +125,7 @@ const FormularioEvaluacion: React.FC = () => {
               />
             </div>
 
-            {methods.watch(`preguntas.${index}.tipo`) === "likert" && (
+            {methods.watch(`questions.${index}.type`) === "likert" && (
               <div className="mt-2">
                 <p className="text-sm mb-2">Selecciona tu nivel de acuerdo:</p>
                 <div className="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-200">
@@ -159,7 +159,7 @@ const FormularioEvaluacion: React.FC = () => {
               </div>
             )}
 
-            {methods.watch(`preguntas.${index}.tipo`) === "multiple" && (
+            {methods.watch(`questions.${index}.type`) === "multiple" && (
               <div className="mt-2">
                 <p className="text-sm font-medium mb-2">
                   Opciones de respuesta:
@@ -173,7 +173,7 @@ const FormularioEvaluacion: React.FC = () => {
               </div>
             )}
 
-            {methods.watch(`preguntas.${index}.tipo`) === "abierta" && (
+            {methods.watch(`questions.${index}.type`) === "abierta" && (
               <textarea
                 rows={2}
                 disabled

@@ -14,7 +14,7 @@ export const OpcionesMultiples = ({
 }) => {
   const { fields, append, remove } = useFieldArray({
     control,
-    name: `preguntas.${index}.opciones` as const,
+    name: `questions.${index}.options` as const,
   });
 
   return (
@@ -24,7 +24,7 @@ export const OpcionesMultiples = ({
         <div className="w-full">
 
           <InputFormContext
-            name={`preguntas.${index}.opciones.${i}` as const}
+            name={`questions.${index}.options.${i}` as const}
             validations={{ required: true }}
             title={`Opción ${i + 1}`}
           />

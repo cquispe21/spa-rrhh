@@ -1,26 +1,11 @@
 import { IEvaluationServices } from "../../application/Evaluation/evaluation";
 import { Evaluacion } from "../../domain/Evaluacion/evaluacion";
+import EvaluationClient from "../../utils/configuration";
 
 export default function EvaluationServices(): IEvaluationServices {
   const EvaluationSaved = async (evaluacion: Evaluacion): Promise<boolean> => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const existingEvaluations = localStorage.getItem("evaluacion");
-      const evaluations: Evaluacion[] = existingEvaluations
-        ? JSON.parse(existingEvaluations)
-        : [];
-
-      const index = evaluations.findIndex(
-        (e) => e.idEvaluacion === evaluacion.idEvaluacion
-      );
-
-      if (index !== -1) {
-        evaluations[index] = evaluacion;
-      } else {
-        evaluations.push(evaluacion);
-      }
-
-      localStorage.setItem("evaluacion", JSON.stringify(evaluations));
+      const res = await EvaluationClient.post("evaluations", evaluacion);
       return true;
     } catch (error) {
       console.error("Error al guardar la evaluación:", error);
