@@ -1,6 +1,7 @@
-import { createContext, ReactNode } from "react";
+import { createContext, ReactNode, useContext } from "react";
 import { IAuthRegister } from "../../../domain/Auth/auth";
 import useAuth from "../../../application/Auth/useAuth";
+import EmployeesContext, { IEmployeesContext } from "./EmployeesContext";
 
 export interface IRegisterContext {
   AuthSet: (auth: IAuthRegister) => void;
@@ -10,10 +11,12 @@ const RegisterContext = createContext({});
 
 export const RegisteroProvider = ({ children }: { children: ReactNode }) => {
   const { Register } = useAuth();
+  const {toggleModal,EmployeesAll} = useContext(EmployeesContext) as IEmployeesContext;
   const AuthSet = async (auth: IAuthRegister) => {
     try {
-    console.log(auth);
-    await Register(auth);
+      await Register(auth);
+      toggleModal();
+      EmployeesAll();
     } catch (error) {
       console.log(error);
     }

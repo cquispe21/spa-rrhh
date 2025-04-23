@@ -17,6 +17,8 @@ interface CreateEmployees {
   email: string;
   username: string;
   password: string;
+  names: string;
+  identification: string;
 }
 
 export default function ModalCreateEmployees({
@@ -28,6 +30,8 @@ export default function ModalCreateEmployees({
     email: "",
     username: "",
     password: "",
+    names: "",
+    identification: "",
   };
 
   const methods = useForm({ defaultValues: InitialState });
@@ -46,7 +50,22 @@ export default function ModalCreateEmployees({
         <form onSubmit={methods.handleSubmit(AuthSet)}>
           <div className="grid grid-cols-2 gap-2">
             <InputFormContext
-              classNameI="col-span-2"
+            classNameI="col-span-2"
+              name="names"
+              title="Nombres Completos"
+              validations={{
+                required: "Este campo es requerido",
+              }}
+            />
+
+            <InputFormContext
+              name="identification"
+              title="Identificación"
+              validations={{
+                required: "Este campo es requerido",
+              }}
+            />
+            <InputFormContext
               name="username"
               title="Nombre de usuario"
               validations={{
@@ -55,7 +74,6 @@ export default function ModalCreateEmployees({
             />
 
             <InputFormContext
-              classNameI="col-span-2"
               name="password"
               title="Contraseña"
               validations={{
@@ -64,8 +82,8 @@ export default function ModalCreateEmployees({
             />
 
             <InputFormContext
-              classNameI="col-span-2"
               name="email"
+              type="email"
               title="Correo electrónico"
               validations={{
                 required: "Este campo es requerido",
@@ -73,7 +91,6 @@ export default function ModalCreateEmployees({
             />
 
             <InputSelectContext
-              classNameI="col-span-2"
               name="idRol"
               title="Seleccionar Rol"
               options={[

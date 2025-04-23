@@ -1,13 +1,12 @@
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Button from "@/shared/Components/Button";
-import { useNavigate } from "react-router-dom";
 import ModalCreateEmployees from "./ModalCreateEmployees";
 import { useContext } from "react";
 import EmployeesContext, { IEmployeesContext } from "../Context/EmployeesContext";
+import moment from "moment";
 
 export default function Employees() {
-    const navigate = useNavigate();
-    const {isOpen,toggleModal} = useContext(EmployeesContext) as IEmployeesContext;
+    const {isOpen,toggleModal,EmployeesList} = useContext(EmployeesContext) as IEmployeesContext;
     return (
         <>
         <ModalCreateEmployees isOpen={isOpen} onClose={toggleModal}/>
@@ -24,19 +23,21 @@ export default function Employees() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Nombre</TableHead>
-              <TableHead>Descripción</TableHead>
-              <TableHead>Fecha de Creacion</TableHead>
-              <TableHead>Acciones</TableHead>
+              <TableHead>Employees</TableHead>
+              <TableHead>Username</TableHead>
+              {/* <TableHead>Identification</TableHead> */}
+              <TableHead>Fecha Creaction</TableHead>
+              <TableHead>Fecha Modificacion</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {/* {Evaluationlist?.map((evaluation) => (
-              <TableRow key={evaluation.idEvaluacion}>
-                <TableHead>{evaluation.evaluacion}</TableHead>
-                <TableHead>{evaluation.descripcion}</TableHead>
-                <TableHead>{evaluation.fechaCreacion && "11/202/205"}</TableHead>
-                <TableHead>
+            {EmployeesList?.map((employees) => (
+              <TableRow key={employees._id}>
+                <TableHead>{employees.names}</TableHead>
+                <TableHead>{employees.identification}</TableHead>
+                <TableHead>{moment(employees.createdAt).format("YYYY-MM-DD")}</TableHead>
+                <TableHead>  {moment(employees.updatedAt).format("YYYY-MM-DD")}</TableHead>
+                {/* <TableHead>
                   <Button
                     text="Ver Detalles"
                     style="bg-[#374151] hover:bg-[#313a48]"
@@ -45,9 +46,9 @@ export default function Employees() {
                       navigate(`/360/evaluations/${evaluation.idEvaluacion}`);
                     }}
                   />
-                </TableHead>
+                </TableHead> */}
               </TableRow>
-            ))} */}
+            ))}
           </TableBody>
         </Table>
       </div>
