@@ -10,6 +10,7 @@ import EvaluacionIndex from "./feactures/Evaluacion/EvaluacionIndex";
 import { useDispatch } from "react-redux";
 import { setUser } from "./redux/Auth/auth.slice";
 import EmployeesIndex from "./feactures/Register/EmployeesIndex";
+import MisEvaluacionesIndex from "./feactures/MisEvaluaciones/MiEvaluacionIndex";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
             <Route path="employees" element={<EmployeesIndex/>} />
             <Route path="evaluation" element={<EvaluacionIndex />} />
             <Route path="evaluations/create" element={<EvaluacionIndex />} />
+            <Route path="myevaluations" element={<MisEvaluacionesIndex />} />
             <Route path="evaluations/:id" element={<EvaluacionIndex />} />
             <Route path="evaluations/employee/:id" element={<></>} />
             <Route path="feedback" element={<></>} />
