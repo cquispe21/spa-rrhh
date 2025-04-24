@@ -1,54 +1,76 @@
-# React + TypeScript + Vite
+README.md – Frontend (React + TypeScript)
+markdown
+Copiar
+Editar
+# Frontend Evaluaciones 360°
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción
+Aplicación web en **React + TypeScript** para gestionar evaluaciones 360° de empleados.  
+Interfaz moderna, responsiva y profesional.
 
-Currently, two official plugins are available:
+## Características
+- Registro/Login con JWT  
+- Dashboards por rol (Admin, Manager, Employee)  
+- Formularios dinámicos con **React Hook Form**  
+- Gestión de estado con **Redux Toolkit** y **Context API**  
+- Navegación con **React Router v6**  
+- Código limpio: hooks reutilizables, contexto, acciones y reducers organizados  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologías
+- React 18, TypeScript, Vite  
+- React Hook Form  
+- Redux Toolkit, Context API  
+- Tailwind CSS  
+- Axios  
 
-## Expanding the ESLint configuration
+## Instalación y ejecución
+1. Clonar repositorio  
+   ```bash
+   git clone https://github.com/tu-usuario/frontend-evaluaciones.git
+   cd frontend-evaluaciones
+Instalar dependencias
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+bash
+Copiar
+Editar
+npm install
+Configurar variables de entorno
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Copia .env.example → .env
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Define VITE_API_BASE_URL=http://localhost:4000/api
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Ejecutar en desarrollo
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+bash
+Copiar
+Editar
+npm run dev
+Generar build de producción
+
+bash
+Copiar
+Editar
+npm run build
+Estructura del proyecto
+bash
+Copiar
+Editar
+src/
+├─ components/       # Componentes UI reutilizables
+├─ features/         # Slices de Redux y Context Providers
+├─ hooks/            # Custom hooks
+├─ pages/            # Vistas / rutas principales
+├─ routes/           # Configuración de React Router
+├─ services/         # Clientes HTTP (Axios)
+└─ styles/           # Tailwind overrides y utilidades
+Diseño
+Paleta de colores:
+
+Azul principal: #1E3A8A
+
+Gris oscuro: #111827
+
+Verde acento: #10B981
+
+Accesibilidad: contraste WCAG, tipografía legible
