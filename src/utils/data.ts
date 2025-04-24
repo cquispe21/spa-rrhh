@@ -5,6 +5,7 @@ export const mockEvaluaciones: Evaluacion[] = [
     title: "Evaluación de Desempeño 2024",
     description: "Evaluación anual de desempeño del empleado.",
     fechaCreacion: new Date("2024-12-15T10:00:00Z"),
+    status: "pendiente",
     questions: [
       {
         text: "¿Cómo calificarías tu rendimiento general?",

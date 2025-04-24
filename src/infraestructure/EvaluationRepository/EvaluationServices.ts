@@ -20,7 +20,7 @@ export default function EvaluationServices(): IEvaluationServices {
       );
 
       const modeloEvaluacion: Evaluacion[] = res.map(
-        ({ _id, createdAt, ...rest }) => {
+        ({ _id, createdAt, ...rest }: { _id: string; createdAt: string; [key: string]: any }) => {
           return {
             ...rest,
             idEvaluacion: _id,
@@ -49,7 +49,7 @@ export default function EvaluationServices(): IEvaluationServices {
         idEvaluacion: res._id,
         fechaCreacion: res.createdAt,
       };
-      delete modeloEvaluacionId._id;
+      delete (modeloEvaluacionId as { _id?: string })._id;
 
       return modeloEvaluacionId;
     } catch (error) {

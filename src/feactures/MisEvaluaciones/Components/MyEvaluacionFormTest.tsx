@@ -19,7 +19,7 @@ import MiEvaluacionContext, {
 } from "../Context/MiEvaluacionContext";
 
 const MyFormularioEvaluacion: React.FC = () => {
-  const { guardarEvaluacion, EvaluationId, updateEvaluation } = useContext(
+  const {  EvaluationId, updateEvaluation } = useContext(
     EvaluacionContext
   ) as IEvaluacionContext;
 
@@ -48,7 +48,7 @@ const MyFormularioEvaluacion: React.FC = () => {
     mode: "all",
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append } = useFieldArray({
     control: methods.control,
     name: "questions",
   });

@@ -2,6 +2,7 @@ import { createContext, ReactNode, useContext } from "react";
 import { IAuthRegister } from "../../../domain/Auth/auth";
 import useAuth from "../../../application/Auth/useAuth";
 import EmployeesContext, { IEmployeesContext } from "./EmployeesContext";
+import { toast } from "sonner";
 
 export interface IRegisterContext {
   AuthSet: (auth: IAuthRegister) => void;
@@ -19,6 +20,7 @@ export const RegisteroProvider = ({ children }: { children: ReactNode }) => {
       EmployeesAll();
     } catch (error) {
       console.log(error);
+      // toast.error((error as Error).message || "An unexpected error occurred");
     }
   };
   const storage: IRegisterContext = {

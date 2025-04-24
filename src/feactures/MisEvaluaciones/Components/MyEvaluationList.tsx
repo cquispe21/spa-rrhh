@@ -16,7 +16,7 @@ import MiEvaluacionContext, {
 export default function MyEvaluationList() {
   const navigate = useNavigate();
 
-  const { myEvaluation, myEvaluationList } = useContext(
+  const { myEvaluation } = useContext(
     MiEvaluacionContext
   ) as IMiEvaluacionContext;
   return (

@@ -19,7 +19,7 @@ export default function LoginForm() {
   });
 
   const { AuthSet } = useContext(LoginContext) as ILoginContext;
-  const { isOpen, toggleModal, EmployeesList } = useContext(
+  const { isOpen, toggleModal } = useContext(
     EmployeesContext
   ) as IEmployeesContext;
 

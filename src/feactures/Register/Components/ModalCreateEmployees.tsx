@@ -5,6 +5,7 @@ import { ModalGeneral } from "@/shared/Components/Modal/ModalDefault";
 import { useContext, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import RegisterContext, { IRegisterContext } from "../Context/RegisterContext";
+import { min } from "moment";
 
 interface ModalCreateEmployeesIPropsItems {
   isOpen: boolean;
@@ -72,7 +73,11 @@ export default function ModalCreateEmployees({
               title="Nombre de usuario"
               validations={{
                 required: "Este campo es requerido",
-              }}
+                minLength: {
+                  value: 3,
+                  message: "El nombre de usuario debe tener al menos 3 caracteres",
+                
+              }}}
             />
 
             <InputFormContext

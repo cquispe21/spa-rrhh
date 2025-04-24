@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'sonner';
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -24,6 +25,7 @@ instance.interceptors.response.use(
     if (error.response) {
       console.error('Error response status:', error.response.status);
       console.error('Error response data:', error.response.data);
+      toast.error(error.response.data.error || "An unexpected error occurred");
       if (error.response.status === 401) {
         alert("No Autorizado");
         sessionStorage.clear();

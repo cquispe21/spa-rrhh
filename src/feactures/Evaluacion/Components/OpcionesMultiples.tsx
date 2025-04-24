@@ -5,7 +5,6 @@ import DeleteIcon from "../../../icons/DeleteIcon";
 
 export const OpcionesMultiples = ({
   control,
-  register,
   index,
 }: {
   control: any;

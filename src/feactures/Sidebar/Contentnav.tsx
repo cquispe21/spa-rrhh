@@ -1,4 +1,3 @@
-import EvaluationIcon from "@/icons/EvaluationIcon";
 import { Link } from "react-router-dom";
 import { menuItems } from "./MenuItems";
 
@@ -12,11 +11,8 @@ interface ContentnavProps {
 }
 function Contentnav({
   isHovered,
-  setIsHovered,
   OpenMenu,
-  setOpenMenu,
   OpenMenuMobile,
-  setOpenMenuMobile,
 }: ContentnavProps) {
   return (
     <>
