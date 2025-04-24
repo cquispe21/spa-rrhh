@@ -38,6 +38,8 @@ export default function ModalCreateEmployees({
 
   const { AuthSet } = useContext(RegisterContext) as IRegisterContext;
 
+  const isToken = localStorage.getItem("token") !== null;
+
   useEffect(() => {
     if (!isOpen) {
       methods.reset(InitialState);
@@ -50,7 +52,7 @@ export default function ModalCreateEmployees({
         <form onSubmit={methods.handleSubmit(AuthSet)}>
           <div className="grid grid-cols-2 gap-2">
             <InputFormContext
-            classNameI="col-span-2"
+              classNameI="col-span-2"
               name="names"
               title="Nombres Completos"
               validations={{
@@ -89,19 +91,20 @@ export default function ModalCreateEmployees({
                 required: "Este campo es requerido",
               }}
             />
-
-            <InputSelectContext
-              name="idRol"
-              title="Seleccionar Rol"
-              options={[
-                { value: "1", title: "Admin" },
-                { value: "2", title: "Manager" },
-                { value: "3", title: "Employee" },
-              ]}
-              validations={{
-                required: "Este campo es requerido",
-              }}
-            />
+            {isToken && (
+              <InputSelectContext
+                name="idRol"
+                title="Seleccionar Rol"
+                options={[
+                  { value: "1", title: "Admin" },
+                  { value: "2", title: "Manager" },
+                  { value: "3", title: "Employee" },
+                ]}
+                validations={{
+                  required: "Este campo es requerido",
+                }}
+              />
+            )}
 
             <Button type="submit" style="col-span-2" text="Guardar" />
           </div>

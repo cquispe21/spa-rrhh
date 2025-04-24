@@ -29,6 +29,7 @@ function App() {
             <Route path="evaluation" element={<EvaluacionIndex />} />
             <Route path="evaluations/create" element={<EvaluacionIndex />} />
             <Route path="myevaluations" element={<MisEvaluacionesIndex />} />
+            <Route path="myevaluations/:id" element={<MisEvaluacionesIndex />} />
             <Route path="evaluations/:id" element={<EvaluacionIndex />} />
             <Route path="evaluations/employee/:id" element={<></>} />
             <Route path="feedback" element={<></>} />

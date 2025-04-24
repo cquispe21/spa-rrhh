@@ -1,20 +1,31 @@
-import { createContext, ReactNode } from "react";
+import { Evaluacion } from "@/domain/Evaluacion/evaluacion";
+import { mockEvaluacionesmy } from "@/utils/datamyevaluation";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
 
 export interface IMiEvaluacionContext {
-  ejemplo: string;
+  myEvaluationList: Evaluacion[];
+  myEvaluation: Evaluacion;
 }
 
 const MiEvaluacionContext = createContext({});
 
 export const MiEvaluacionoProvider = ({ children }: { children: ReactNode }) => {
-  
-  const ejemplo = localStorage.getItem("pathMiEvaluacion") || "/360/myevaluations";
+
+
+  const [myEvaluationList,setMyEvaluationList] = useState<Evaluacion[]>([]);
+
+  const [myEvaluation,setMyeVALIATON] = useState<Evaluacion>({} as Evaluacion);
  
-  
+  useEffect(() => {
+    setMyEvaluationList(mockEvaluacionesmy)
+    setMyeVALIATON(mockEvaluacionesmy[0])
+  }
+  , []);
 
   const storage: IMiEvaluacionContext = {
-    ejemplo
+    myEvaluationList,
+    myEvaluation
   };
 
   return (

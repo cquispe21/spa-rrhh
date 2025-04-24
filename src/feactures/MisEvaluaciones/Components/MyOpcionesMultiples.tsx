@@ -20,34 +20,22 @@ export const MyOpcionesMultiples = ({
   return (
     <div className="">
       {fields.map((field, i) => (
-        <div key={field.id} className="flex w-full items-center gap-2 mb-2"> 
-        <div className="w-full">
-
-          <InputFormContext
-            name={`questions.${index}.options.${i}` as const}
-            validations={{ required: true }}
-            title={`Opción ${i + 1}`}
-          />
-        </div>
-
-          <div className="block w-full">
-
-          <Button
-            type="button"
-            onClick={() => remove(i)}
-            icon={<DeleteIcon />}
-          />
+        <div key={field.id} className="flex w-full items-center gap-2 mb-2">
+          <div className="w-full">
+            <InputFormContext
+              name={`questions.${index}.options.${i}` as const}
+              validations={{ required: true }}
+              title={`Opción ${i + 1}`}
+            />
+            <p>
+              
+            </p>
           </div>
 
+         
         </div>
       ))}
-      <button
-        type="button"
-        onClick={() => append("")}
-        className="text-blue-500 text-sm mt-1"
-      >
-        + Agregar opción
-      </button>
+      
     </div>
   );
 };

@@ -1,25 +1,44 @@
 import React, { useContext, useEffect } from "react";
-import { useForm, useFieldArray, FormProvider } from "react-hook-form";
+import {
+  useForm,
+  useFieldArray,
+  FormProvider,
+  Controller,
+} from "react-hook-form";
 import Button from "../../../shared/Components/Button";
-import DeleteIcon from "../../../icons/DeleteIcon";
 import { InputFormContext } from "../../../shared/Components/InputFormContext";
-import InputSelectContext from "../../../shared/Components/InputSelectContext";
 import SavedIcon from "../../../icons/SavedIcon";
 import { Evaluacion } from "../../../domain/Evaluacion/evaluacion";
 
 import { mockEvaluaciones } from "@/utils/data";
-import EvaluacionContext, { IEvaluacionContext } from "@/feactures/Evaluacion/Context/EvaluacionContext";
-import { MyOpcionesMultiples } from "./MyOpcionesMultiples";
+import EvaluacionContext, {
+  IEvaluacionContext,
+} from "@/feactures/Evaluacion/Context/EvaluacionContext";
+import MiEvaluacionContext, {
+  IMiEvaluacionContext,
+} from "../Context/MiEvaluacionContext";
 
 const MyFormularioEvaluacion: React.FC = () => {
   const { guardarEvaluacion, EvaluationId, updateEvaluation } = useContext(
     EvaluacionContext
   ) as IEvaluacionContext;
 
+  const { myEvaluation } = useContext(
+    MiEvaluacionContext
+  ) as IMiEvaluacionContext;
+
   const initialStateForm: Evaluacion = {
     idEvaluacion: "",
     title: "",
-    questions: [],
+    questions: [
+      {
+        text: "",
+        type: "",
+        options: [],
+        respuesta: [],
+      },
+    ],
+
     description: "",
     fechaCreacion: new Date(),
   };
@@ -39,9 +58,7 @@ const MyFormularioEvaluacion: React.FC = () => {
   };
 
   const onSubmit = async (data: Evaluacion) => {
-    if (data.idEvaluacion === "") data.idEvaluacion = crypto.randomUUID();
-    await guardarEvaluacion(data);
-    methods.reset(initialStateForm);
+    console.log(data);
   };
 
   const onSubitEditar = async (data: Evaluacion) => {
@@ -60,6 +77,7 @@ const MyFormularioEvaluacion: React.FC = () => {
   };
   useEffect(() => {
     estadoFormulario();
+    methods.reset(myEvaluation);
   }, [EvaluationId, methods]);
 
   return (
@@ -106,28 +124,14 @@ const MyFormularioEvaluacion: React.FC = () => {
             key={pregunta.id}
             className="mb-4 p-4 border mt-3 border-gray-300 rounded-lg shadow-sm"
           >
-            <div className="flex justify-end items-center ">
-              <Button onClick={() => remove(index)} icon={<DeleteIcon />} />
-            </div>
             <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
               <InputFormContext
                 name={`questions.${index}.text` as const}
                 title="Titulo de la pregunta"
                 validations={{ required: true }}
-              />
-
-              <InputSelectContext
-                name={`questions.${index}.type` as const}
-                title="Tipo de pregunta"
-                options={[
-                  { value: "abierta", title: "Abierta" },
-                  { value: "likert", title: "Likert" },
-                  { value: "multiple", title: "Múltiples opciones" },
-                ]}
-                validations={{ required: true }}
+                disabled
               />
             </div>
-
             {methods.watch(`questions.${index}.type`) === "likert" && (
               <div className="mt-2">
                 <p className="text-sm mb-2">Selecciona tu nivel de acuerdo:</p>
@@ -139,10 +143,12 @@ const MyFormularioEvaluacion: React.FC = () => {
                     >
                       <input
                         type="radio"
-                        name={`likert-${index}`}
+                        {...methods.register(
+                          `questions.${index}.respuesta` as const,
+                          { required: true }
+                        )}
                         value={valor}
                         className="mb-1 accent-blue-500"
-                        disabled
                       />
                       <span className="font-semibold">{valor}</span>
                       <span className="mt-1 text-[10px] sm:text-xs leading-tight">
@@ -161,17 +167,40 @@ const MyFormularioEvaluacion: React.FC = () => {
                 </div>
               </div>
             )}
-
             {methods.watch(`questions.${index}.type`) === "multiple" && (
               <div className="mt-2">
-                <p className="text-sm font-medium mb-2">
-                  Opciones de respuesta:
-                </p>
-
-                <MyOpcionesMultiples
+                <p className="text-sm mb-2">Selecciona una o más opciones:</p>
+                <Controller
                   control={methods.control}
-                  register={methods.register}
-                  index={index}
+                  name={`questions.${index}.respuesta`}
+                  defaultValue={[]}
+                  render={({ field: { value = [], onChange } }) => (
+                    <div className="flex flex-wrap gap-2">
+                      {pregunta?.options?.map((option, optionIndex) => (
+                        <label
+                          key={optionIndex}
+                          className="flex items-center gap-2 text-sm"
+                        >
+                          <input
+                            type="checkbox"
+                            value={option}
+                            checked={value.includes(option)}
+                            onChange={() => {
+                              if (value.includes(option)) {
+                                onChange(
+                                  Array.isArray(value) ? value.filter((v: string) => v !== option) : []
+                                );
+                              } else {
+                                onChange([...value, option]);
+                              }
+                            }}
+                            className="accent-blue-500"
+                          />
+                          <span>{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
                 />
               </div>
             )}
@@ -179,7 +208,10 @@ const MyFormularioEvaluacion: React.FC = () => {
             {methods.watch(`questions.${index}.type`) === "abierta" && (
               <textarea
                 rows={2}
-                disabled
+                {...methods.register(
+                  `questions.${index}.respuesta`,
+                  { required: true }
+                )}
                 placeholder="Respuesta del usuario"
                 className="w-full p-3 border resize-none border-gray-300 rounded-lg shadow-sm mt-2"
               />

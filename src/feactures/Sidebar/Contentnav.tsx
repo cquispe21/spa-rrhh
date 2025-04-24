@@ -64,6 +64,22 @@ function Contentnav({
             
           ))}
 
+            <li
+            className="group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-200 hover:text-gray-900 cursor-pointer"
+            onClick={() => {
+              // Logic for logout
+              localStorage.clear(); // Clear any stored user data
+              window.location.href = "/login"; // Redirect to login page
+            }}
+            >
+           
+            {(isHovered && !OpenMenu) || OpenMenu || OpenMenuMobile ? (
+              <p className="group-hover:text-black dark:group-hover:text-black">
+              Logout
+              </p>
+            ) : null}
+            </li>
+
           
         </ul>
       </nav>

@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { Evaluacion } from "../../domain/Evaluacion/evaluacion";
 import EvaluationServices from "../../infraestructure/EvaluationRepository/EvaluationServices";
 
@@ -6,10 +7,12 @@ export default function useEvaluation() {
     EvaluationServices();
   const SaveEvalution = async (evaluation: Evaluacion): Promise<boolean> => {
     try {
-      return EvaluationSaved(evaluation);
+      await EvaluationSaved(evaluation);
+      toast.success("Evaluación guardada");
+      return true;
     } catch (error) {
-      console.log(error);
-      throw new Error("Error en la autenticación");
+      toast.error("Error al guardar la evaluación");
+      throw error;
     }
   };
 

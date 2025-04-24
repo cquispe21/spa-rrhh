@@ -23,6 +23,7 @@ const FormularioEvaluacion: React.FC = () => {
     questions: [],
     description: "",
     fechaCreacion: new Date(),
+    status :"pendiente"
   };
 
   const methods = useForm<Evaluacion>({
@@ -100,6 +101,17 @@ const FormularioEvaluacion: React.FC = () => {
             title="Descripción de la evaluación"
             validations={{ required: true }}
           />
+
+<InputSelectContext
+                name={"status" as const}
+                title="Tipo de pregunta"
+                options={[
+                  { value: "pendiente", title: "pendiente" },
+                  { value: "publica", title: "publica" },
+              
+                ]}
+                validations={{ required: true }}
+              />
         </div>
 
         {fields.map((pregunta, index) => (

@@ -3,14 +3,13 @@ import { Evaluacion } from "../../domain/Evaluacion/evaluacion";
 import EvaluationClient from "../../utils/configuration";
 
 export default function EvaluationServices(): IEvaluationServices {
-
   const EvaluationSaved = async (evaluacion: Evaluacion): Promise<boolean> => {
     try {
       await EvaluationClient.post("evaluations", evaluacion);
       return true;
-    } catch (error) {
-      console.error("Error al guardar la evaluación:", error);
-      return false;
+    } catch (ex) {
+      console.error("Error guardando evaluación:", ex);
+      throw new Error("No se pudo guardar la evaluación");
     }
   };
 
@@ -70,8 +69,12 @@ export default function EvaluationServices(): IEvaluationServices {
       console.error("Error al actualizar la evaluación:", error);
       return false;
     }
-  }
+  };
 
-
-  return { EvaluationSaved, EvaluationAll, EvaluationSearcId,EvaluationUpdate };
+  return {
+    EvaluationSaved,
+    EvaluationAll,
+    EvaluationSearcId,
+    EvaluationUpdate,
+  };
 }

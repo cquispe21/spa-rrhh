@@ -25,7 +25,6 @@ export const EvaluacionoProvider = ({ children }: { children: ReactNode }) => {
   const { SaveEvalution, GetEvaluationAll, GetEvaluationId,UpdateEvaluation } = useEvaluation();
   const guardarEvaluacion = async (e: Evaluacion) => {
     await SaveEvalution(e);
-    toast.success("Evaluación guardada");
     if (id) {
       setEvaluationId({} as Evaluacion);
     }
