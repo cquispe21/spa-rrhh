@@ -93,12 +93,12 @@ const MyFormularioEvaluacion: React.FC = () => {
             text="Guardar Evaluación"
             icon={<SavedIcon />}
           />
-          <Button
+          {/* <Button
             style="w-full sm:w-auto flex justify-center items-center gap-x-2"
             onClick={EncuestaTest}
             text="Llenar Evaluación Test"
             icon={<SavedIcon />}
-          />
+          /> */}
         </div>
 
         <h1 className="text-2xl font-semibold text-gray-900 text-center mb-6">
