@@ -24,13 +24,7 @@ export default function MyEvaluationList() {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Mis Evaluaciones</h1>
 
-        <Button
-          text="Crear Evaluación"
-          style="bg-[#374151] hover:bg-[#313a48]"
-          onClick={() => {
-            navigate("/360/evaluations/create");
-          }}
-        />
+        
       </div>
       <Table>
         <TableHeader>
